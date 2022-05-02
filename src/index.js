@@ -1,6 +1,6 @@
 import React from 'react';
 import Route from './routes';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 
 function App() {
   return (
@@ -8,6 +8,6 @@ function App() {
       <Route />
     </NavigationContainer>
   );
-};
+}
 
 export default App;
