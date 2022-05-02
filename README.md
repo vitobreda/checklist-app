@@ -14,3 +14,6 @@
 - `pod install`
 - `cd ..`
 - `yarn ios`
+
+## Iniciar server-json
+- `json-server --watch db.json -H IP_ADDRESS`   
