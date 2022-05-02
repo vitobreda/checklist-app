@@ -1,17 +1,21 @@
 import React from 'react';
-import {Text} from 'react-native';
 import Styles from './ListItem.styles';
+import Info from '../Info';
 
-function ListItem({ item }) {
-    const { from, farmer } = item;
-    return (
-        <Styles.Container>
-            <Styles.Title>{`farmer name: ${from.name}`}</Styles.Title>
-            <Styles.Description>{`farm name: ${farmer.name}`}</Styles.Description>
-            <Styles.Description>{`city name: ${farmer.city}`}</Styles.Description>
-            <Styles.Description>{`${item.created_at}`}</Styles.Description>
-        </Styles.Container>
-    );
-};
+function ListItem({item, onPress}) {
+  const {from, farmer} = item;
+  return (
+    <Styles.Container onPress={onPress}>
+      <Info.Row>
+        <Info.Column title="Fazendeiro" description={from.name} />
+        <Info.Column title="Nome da fazenda" description={farmer.name} />
+      </Info.Row>
+      <Info.Row>
+        <Info.Column title="Cidade" description={farmer.city} />
+        <Info.Column title="Data de cadastro" description={item.created_at} />
+      </Info.Row>
+    </Styles.Container>
+  );
+}
 
 export default ListItem;

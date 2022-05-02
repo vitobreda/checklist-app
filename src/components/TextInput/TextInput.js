@@ -10,11 +10,10 @@ function Input({name, control, placeholder}) {
   });
 
   return (
-    <Styles.InputText
-      value={field.value}
-      onChangeText={field.onChange}
-      placeholder={placeholder}
-    />
+    <Styles.Container>
+      <Styles.Description>{placeholder}</Styles.Description>
+      <Styles.InputText value={field.value} onChangeText={field.onChange} />
+    </Styles.Container>
   );
 }
 

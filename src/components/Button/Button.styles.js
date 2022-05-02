@@ -1,23 +1,19 @@
 import styled from 'styled-components';
 
 const Container = styled.TouchableOpacity`
-  flex: 1;
-  margin-bottom: 16px;
-  background-color: #fff;
+  height: 55px;
   border-radius: 16px;
-  padding: 16px;
+  background-color: #72a1e5;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Title = styled.Text`
-  font-size: 20px;
-`;
-
-const Description = styled.Text`
   font-size: 16px;
+  color: #fff;
 `;
 
 export default {
   Container,
   Title,
-  Description,
 };

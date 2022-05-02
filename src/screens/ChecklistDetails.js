@@ -1,26 +1,69 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Data } from '../mock';
+import {ScrollView} from 'react-native';
+import Button from '../components/Button';
+import Container from '../components/Container';
+import Info from '../components/Info';
 
-function ChecklistDetails() {
-    const { checklists } = Data;
-    const checklist = checklists[0];
+function ChecklistDetails({route, navigation}) {
+  const {checklist} = route.params;
 
-    return (
-        <View>
-            <Text>{`id: ${checklist.id}`}</Text>
-            <Text>{`type: ${checklist.type}`}</Text>
-            <Text>{`amount_of_milk_produced: ${checklist.amount_of_milk_produced}`}</Text>
-            <Text>{`number_of_cows_head: ${checklist.number_of_cows_head}`}</Text>
-            <Text>{`had_supervision: ${checklist.had_supervision}`}</Text>
-            <Text>{`farm name: ${checklist.farmer.name}`}</Text>
-            <Text>{`farm city: ${checklist.farmer.city}`}</Text>
-            <Text>{`farmer: ${checklist.from.name}`}</Text>
-            <Text>{`supervisor name: ${checklist.to.name}`}</Text>
-            <Text>{`created_at: ${checklist.created_at}`}</Text>
-            <Text>{`updated_at: ${checklist.updated_at}`}</Text>
-        </View>
-    );
-};
+  const navigateToChecklistUpdate = () => {
+    navigation.navigate('Checklist Update', {checklist});
+  };
+
+  return (
+    <Container>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Info.Row>
+          <Info.Column title="Identificador" description={checklist.id} />
+          <Info.Column title="Tipo" description={checklist.type} />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column
+            title="Quant. leite"
+            description={checklist.amount_of_milk_produced}
+          />
+          <Info.Column
+            title="Quant. cabeças"
+            description={checklist.number_of_cows_head}
+          />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column
+            title="Teve supervisão"
+            description={checklist.had_supervision ? 'Sim' : 'Não'}
+          />
+          <Info.Column title="Cidade" description={checklist.farmer.city} />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column
+            title="Nome da fazenda"
+            description={checklist.farmer.name}
+          />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column title="Fazendeiro" description={checklist.from.name} />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column title="Supervisor" description={checklist.to.name} />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column
+            title="Data de cadastro"
+            description={checklist.created_at}
+          />
+        </Info.Row>
+        <Info.Row>
+          <Info.Column
+            title="Data de alteração"
+            description={checklist.updated_at}
+          />
+        </Info.Row>
+
+        <Button title="Editar checklist" onPress={navigateToChecklistUpdate} />
+      </ScrollView>
+    </Container>
+  );
+}
 
 export default ChecklistDetails;
