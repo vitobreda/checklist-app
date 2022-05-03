@@ -3,9 +3,15 @@ import {ScrollView} from 'react-native';
 import Button from '../components/Button';
 import Container from '../components/Container';
 import Info from '../components/Info';
+import ChecklistContext from '../models/Checklist';
+
+const {useObject} = ChecklistContext;
 
 function ChecklistDetails({route, navigation}) {
-  const {checklist} = route.params;
+  const {checklist_id} = route.params;
+  const checklist = useObject('Checklist', checklist_id);
+  const created_at = new Date(checklist.created_at);
+  const updated_at = new Date(checklist.updated_at);
 
   const navigateToChecklistUpdate = () => {
     navigation.navigate('Checklist Update', {checklist});
@@ -15,7 +21,10 @@ function ChecklistDetails({route, navigation}) {
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Info.Row>
-          <Info.Column title="Identificador" description={checklist.id} />
+          <Info.Column
+            title="Identificador"
+            description={checklist.id.toString()}
+          />
           <Info.Column title="Tipo" description={checklist.type} />
         </Info.Row>
         <Info.Row>
@@ -50,13 +59,13 @@ function ChecklistDetails({route, navigation}) {
         <Info.Row>
           <Info.Column
             title="Data de cadastro"
-            description={checklist.created_at}
+            description={created_at.toLocaleString()}
           />
         </Info.Row>
         <Info.Row>
           <Info.Column
             title="Data de alteração"
-            description={checklist.updated_at}
+            description={updated_at.toLocaleString()}
           />
         </Info.Row>
 

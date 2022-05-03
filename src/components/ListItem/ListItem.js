@@ -4,6 +4,7 @@ import Info from '../Info';
 
 function ListItem({item, onPress}) {
   const {from, farmer} = item;
+  const date = new Date(item.created_at);
   return (
     <Styles.Container onPress={onPress}>
       <Info.Row>
@@ -12,7 +13,10 @@ function ListItem({item, onPress}) {
       </Info.Row>
       <Info.Row>
         <Info.Column title="Cidade" description={farmer.city} />
-        <Info.Column title="Data de cadastro" description={item.created_at} />
+        <Info.Column
+          title="Data de cadastro"
+          description={date.toLocaleString()}
+        />
       </Info.Row>
     </Styles.Container>
   );

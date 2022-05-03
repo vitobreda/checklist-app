@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import {ScrollView} from 'react-native';
 import Container from '../components/Container';
@@ -6,11 +6,35 @@ import TextInput from '../components/TextInput';
 import TypePicker from '../components/TypePicker';
 import Button from '../components/Button';
 import Switch from '../components/Switch';
+import ChecklistContext, {CheckList} from '../models/Checklist';
+
+const {useRealm} = ChecklistContext;
 
 function ChecklistCreate() {
-  const {control, handleSubmit} = useForm();
+  const realm = useRealm();
+  const {control, handleSubmit} = useForm({
+    defaultValues: {
+      type: 'BPA',
+      had_supervision: false,
+    },
+  });
 
-  const onSubmit = data => console.log(data);
+  const handleAddChecklist = useCallback(
+    checklist => {
+      if (!checklist) {
+        return;
+      }
+
+      realm.write(() => {
+        realm.create('Checklist', new CheckList(checklist));
+      });
+    },
+    [realm],
+  );
+
+  const onSubmit = data => {
+    handleAddChecklist(data);
+  };
 
   return (
     <Container>

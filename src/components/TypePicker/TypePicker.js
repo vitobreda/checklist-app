@@ -1,7 +1,6 @@
 import React from 'react';
 import Styles from './TypePicker.styles';
 import {useController} from 'react-hook-form';
-import StyledComponents from 'styled-components';
 
 function TypePicker({name, control}) {
   const {field} = useController({
