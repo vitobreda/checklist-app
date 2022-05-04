@@ -7,11 +7,13 @@ import TypePicker from '../components/TypePicker';
 import Button from '../components/Button';
 import Switch from '../components/Switch';
 import ChecklistContext, {CheckList} from '../models/Checklist';
+import useSyncData from '../hooks/useSyncData';
 
 const {useRealm} = ChecklistContext;
 
-function ChecklistCreate() {
+function ChecklistCreate({navigation}) {
   const realm = useRealm();
+  const {postChecklist} = useSyncData();
   const {control, handleSubmit} = useForm({
     defaultValues: {
       type: 'BPA',
@@ -26,14 +28,19 @@ function ChecklistCreate() {
       }
 
       realm.write(() => {
-        realm.create('Checklist', new CheckList(checklist));
+        const newChecklist = realm.create(
+          'Checklist',
+          new CheckList(checklist),
+        );
+        postChecklist(newChecklist);
       });
     },
-    [realm],
+    [postChecklist, realm],
   );
 
   const onSubmit = data => {
     handleAddChecklist(data);
+    navigation.goBack();
   };
 
   return (

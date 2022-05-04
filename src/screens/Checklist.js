@@ -4,11 +4,13 @@ import Button from '../components/Button';
 import Container from '../components/Container';
 import ListItem from '../components/ListItem';
 import ChecklistContext from '../models/Checklist';
+import useSyncData from '../hooks/useSyncData';
 
 const {useQuery} = ChecklistContext;
 
 function Checklist({navigation}) {
   const result = useQuery('Checklist');
+  useSyncData();
   const checklists = useMemo(() => result.sorted('created_at'), [result]);
 
   const navigateToChecklistCreate = () => {
